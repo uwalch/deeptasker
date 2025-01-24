@@ -31,3 +31,18 @@ Ein intelligentes Aufgabenverwaltungssystem, das maschinelles Lernen nutzt, um I
 
 ### Installation der Abhängigkeiten
 
+## Beschreibung
+Kurze Beschreibung des Projekts.
+
+## Installation
+Beschreiben Sie hier die Installationsschritte.
+
+## Verwendung
+Erklären Sie hier, wie man das Projekt verwendet.
+
+## Beitragen
+Anweisungen für Entwickler, die zum Projekt beitragen möchten.
+
+## Lizenz
+Geben Sie hier die Lizenzinformationen an.
+
