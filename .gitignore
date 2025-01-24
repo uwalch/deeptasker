@@ -169,3 +169,39 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Angular
+/dist
+/tmp
+/out-tsc
+/bazel-out
+.angular
+
+# Node
+/node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# IDEs und Editoren
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+
+# Misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+.env
+
+# System Files
+.DS_Store
+Thumbs.db

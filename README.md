@@ -10,5 +10,24 @@ Ein intelligentes Aufgabenverwaltungssystem, das maschinelles Lernen nutzt, um I
 - **Automatische Kategorisierung**: Ordnet neue Aufgaben automatisch in passende Kategorien ein
 - **Fortschrittsanalyse**: Visualisiert Ihre Produktivitätstrends und gibt personalisierte Verbesserungsvorschläge
 
-## Installation
+## Technologie-Stack
+
+- Frontend: Angular 17+
+- UI-Komponenten: Angular Material
+- State Management: NgRx
+- Styling: SCSS
+- Testing: Jasmine & Karma
+
+## Installation und Setup
+
+### Voraussetzungen
+- Node.js (Version 18+)
+- npm (Version 9+)
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Entwicklungsserver starten
+
+## Entwicklungssetup
+
+### Installation der Abhängigkeiten
 
