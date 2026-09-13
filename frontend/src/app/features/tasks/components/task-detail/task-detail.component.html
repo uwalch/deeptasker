@@ -1,0 +1,62 @@
+<a class="back" mat-button routerLink="/tasks">
+  <mat-icon>arrow_back</mat-icon>
+  Alle Aufgaben
+</a>
+
+@if (task(); as task) {
+  <article>
+    <header class="detail-head">
+      <h1 class="detail-head__title">{{ task.title }}</h1>
+      <app-status-chip [status]="task.status" />
+    </header>
+
+    @if (task.description) {
+      <p class="detail-description">{{ task.description }}</p>
+    }
+
+    <dl class="facts">
+      <div class="facts__item">
+        <dt>Priorität</dt>
+        <dd>{{ priorityLabels[task.priority] }}</dd>
+      </div>
+      <div class="facts__item">
+        <dt>Geschätzter Aufwand</dt>
+        <dd>{{ formatMinutes(task.estimatedMinutes) }}</dd>
+      </div>
+      <div class="facts__item">
+        <dt>Tatsächlicher Aufwand</dt>
+        <dd>{{ formatMinutes(task.actualMinutes) }}</dd>
+      </div>
+      <div class="facts__item">
+        <dt>Fällig am</dt>
+        <dd>{{ formatDate(task.dueDate) }}</dd>
+      </div>
+      <div class="facts__item">
+        <dt>Angelegt am</dt>
+        <dd>{{ formatDate(task.createdAt) }}</dd>
+      </div>
+    </dl>
+  </article>
+} @else if (store.loading()) {
+  <p class="detail-loading" role="status">Aufgabe wird geladen …</p>
+} @else if (store.error(); as error) {
+  <app-empty-state
+    icon="cloud_off"
+    tone="error"
+    title="Aufgabe konnte nicht geladen werden"
+    [description]="error"
+  >
+    <button mat-stroked-button type="button" (click)="store.load()">
+      <mat-icon>refresh</mat-icon>
+      Erneut versuchen
+    </button>
+  </app-empty-state>
+} @else {
+  <app-empty-state
+    icon="search_off"
+    title="Aufgabe nicht gefunden"
+    description="Diese Aufgabe existiert nicht oder wurde gelöscht."
+  >
+    <a mat-stroked-button routerLink="/tasks">Zur Aufgabenliste</a>
+  </app-empty-state>
+}

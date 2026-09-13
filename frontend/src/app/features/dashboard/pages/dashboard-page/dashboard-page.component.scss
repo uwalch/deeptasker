@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.page-head__title {
+  margin: 0;
+  font: var(--mat-sys-headline-medium);
+}
+
+.page-head__sub {
+  margin: var(--dt-space-1) 0 var(--dt-space-5);
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--dt-space-3);
+  margin-bottom: var(--dt-space-5);
+}
+
+.panel {
+  padding: var(--dt-space-4);
+  margin-bottom: var(--dt-space-4);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--dt-radius);
+  background: var(--mat-sys-surface-container-low);
+}
+
+.panel__title {
+  margin: 0 0 var(--dt-space-4);
+  font: var(--mat-sys-title-small);
+}
+
+.panel__text {
+  margin: 0 0 var(--dt-space-4);
+  max-width: 48rem;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+}

@@ -1,0 +1,40 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dt-space-2);
+  padding: var(--dt-space-6) var(--dt-space-4);
+  text-align: center;
+  border: 1px dashed var(--mat-sys-outline-variant);
+  border-radius: var(--dt-radius);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.empty__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2.5rem;
+  color: var(--mat-sys-outline);
+}
+
+.empty__title {
+  margin: 0;
+  font: var(--mat-sys-title-small);
+  color: var(--mat-sys-on-surface);
+}
+
+.empty__text {
+  margin: 0;
+  max-width: 32rem;
+  font: var(--mat-sys-body-medium);
+}
+
+.empty--error {
+  border-style: solid;
+  border-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.empty--error .empty__icon {
+  color: var(--mat-sys-error);
+}

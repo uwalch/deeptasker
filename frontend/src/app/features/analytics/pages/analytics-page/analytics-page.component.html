@@ -1,0 +1,54 @@
+<header class="page-head">
+  <div>
+    <h1 class="page-head__title">Auswertungen</h1>
+    <p class="page-head__sub">Wie sich die Aufgaben verteilen</p>
+  </div>
+</header>
+
+@if (store.error(); as error) {
+  <app-empty-state
+    icon="cloud_off"
+    tone="error"
+    title="Auswertungen nicht verfügbar"
+    [description]="error"
+  >
+    <button mat-stroked-button type="button" (click)="store.load()">
+      <mat-icon>refresh</mat-icon>
+      Erneut versuchen
+    </button>
+  </app-empty-state>
+} @else if (!store.tasks().length && !store.loading()) {
+  <app-empty-state
+    icon="bar_chart"
+    title="Noch nichts auszuwerten"
+    description="Auswertungen entstehen, sobald Aufgaben erfasst und erledigt werden."
+  >
+    <a mat-flat-button routerLink="/tasks/neu">
+      <mat-icon>add</mat-icon>
+      Erste Aufgabe anlegen
+    </a>
+  </app-empty-state>
+} @else {
+  <section class="panel">
+    <h2 class="panel__title">Aufgaben nach Priorität</h2>
+    <ul class="bars">
+      @for (row of priorityRows(); track row.priority) {
+        <li class="bars__row">
+          <span class="bars__label">{{ row.label }}</span>
+          <span class="bars__track">
+            <span class="bars__fill" [style.width.%]="row.percent"></span>
+          </span>
+          <span class="bars__value">{{ row.count }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">Geplant für die Zukunft</h2>
+    <p class="panel__text">
+      Produktivitätstrends und personalisierte Verbesserungsvorschläge brauchen historische Daten.
+      Die entstehen, sobald das Backend Aufgaben über die Zeit speichert.
+    </p>
+  </section>
+}

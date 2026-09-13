@@ -1,0 +1,76 @@
+<header class="page-head">
+  <div>
+    <h1 class="page-head__title">Dashboard</h1>
+    <p class="page-head__sub">Überblick über den aktuellen Stand</p>
+  </div>
+</header>
+
+@if (store.error(); as error) {
+  <app-empty-state
+    icon="cloud_off"
+    tone="error"
+    title="Kennzahlen nicht verfügbar"
+    [description]="error"
+  >
+    <button mat-stroked-button type="button" (click)="store.load()">
+      <mat-icon>refresh</mat-icon>
+      Erneut versuchen
+    </button>
+  </app-empty-state>
+} @else if (!store.tasks().length && !store.loading()) {
+  <app-empty-state
+    icon="insights"
+    title="Noch keine Daten"
+    description="Sobald Aufgaben angelegt sind, erscheinen hier die Kennzahlen."
+  >
+    <a mat-flat-button routerLink="/tasks/neu">
+      <mat-icon>add</mat-icon>
+      Erste Aufgabe anlegen
+    </a>
+  </app-empty-state>
+} @else {
+  <div class="kpi-row">
+    <app-stat-tile
+      label="Offen"
+      icon="pending_actions"
+      [value]="store.openCount()"
+      [caption]="'von ' + store.tasks().length + ' Aufgaben'"
+      [hero]="true"
+    />
+    <app-stat-tile
+      label="In Arbeit"
+      icon="autorenew"
+      [value]="store.byStatus().in_arbeit"
+      caption="derzeit angefangen"
+    />
+    <app-stat-tile
+      label="Geplanter Aufwand"
+      icon="schedule"
+      [value]="plannedLabel()"
+      caption="Summe der offenen Schätzungen"
+    />
+    <app-stat-tile
+      label="Erledigt"
+      icon="task_alt"
+      [value]="completionLabel()"
+      caption="Anteil abgeschlossener Aufgaben"
+    />
+  </div>
+
+  <section class="panel">
+    <h2 class="panel__title">Aufgaben nach Status</h2>
+    <app-status-bar [counts]="store.byStatus()" />
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">Nächste Schritte</h2>
+    <p class="panel__text">
+      Die intelligente Priorisierung und die lernfähige Zeitschätzung sind noch nicht angebunden.
+      Bis dahin sortiert die Aufgabenliste nach der manuell gesetzten Priorität.
+    </p>
+    <a mat-stroked-button routerLink="/tasks">
+      <mat-icon>checklist</mat-icon>
+      Zu den Aufgaben
+    </a>
+  </section>
+}

@@ -1,0 +1,95 @@
+<header class="page-head">
+  <div>
+    <h1 class="page-head__title">Aufgaben</h1>
+    <p class="page-head__sub">
+      @if (store.loading()) {
+        Wird geladen …
+      } @else {
+        {{ store.openCount() }} offen von {{ store.tasks().length }}
+      }
+    </p>
+  </div>
+  <a mat-flat-button routerLink="/tasks/neu">
+    <mat-icon>add</mat-icon>
+    Neue Aufgabe
+  </a>
+</header>
+
+<mat-button-toggle-group
+  class="filters"
+  aria-label="Nach Status filtern"
+  [value]="store.statusFilter()"
+  (change)="store.setStatusFilter($event.value)"
+  hideSingleSelectionIndicator
+>
+  @for (filter of filters; track filter.value) {
+    <mat-button-toggle [value]="filter.value">{{ filter.label }}</mat-button-toggle>
+  }
+</mat-button-toggle-group>
+
+@if (store.loading()) {
+  <div class="state-center" role="status">
+    <mat-spinner diameter="36" />
+    <span>Aufgaben werden geladen …</span>
+  </div>
+} @else if (store.error(); as error) {
+  <app-empty-state
+    icon="cloud_off"
+    tone="error"
+    title="Aufgaben konnten nicht geladen werden"
+    [description]="error"
+  >
+    <button mat-stroked-button type="button" (click)="retry()">
+      <mat-icon>refresh</mat-icon>
+      Erneut versuchen
+    </button>
+  </app-empty-state>
+} @else if (store.visibleTasks().length) {
+  <ul class="task-list">
+    @for (task of store.visibleTasks(); track task.id) {
+      <li class="task-card" [class.task-card--done]="task.status === 'erledigt'">
+        <a class="task-card__link" [routerLink]="['/tasks', task.id]">
+          <span
+            class="task-card__rail"
+            [class]="'task-card__rail--' + task.priority"
+            aria-hidden="true"
+          ></span>
+
+          <span class="task-card__body">
+            <span class="task-card__title">{{ task.title }}</span>
+            <span class="task-card__meta">
+              <app-status-chip [status]="task.status" />
+              <span class="task-card__prio">
+                <mat-icon
+                  class="task-card__prio-icon"
+                  [matTooltip]="'Priorität ' + priorityLabels[task.priority]"
+                  >{{ priorityIcon(task.priority) }}</mat-icon
+                >
+                {{ priorityLabels[task.priority] }}
+              </span>
+              @if (formatDuration(task.estimatedMinutes); as estimate) {
+                <span class="task-card__estimate">
+                  <mat-icon aria-hidden="true">schedule</mat-icon>
+                  {{ estimate }}
+                </span>
+              }
+            </span>
+          </span>
+
+          <mat-icon class="task-card__chevron" aria-hidden="true">chevron_right</mat-icon>
+        </a>
+      </li>
+    }
+  </ul>
+} @else {
+  <app-empty-state
+    icon="task_alt"
+    title="Keine Aufgaben für diesen Filter"
+    description="Wechsle den Filter oder lege eine neue Aufgabe an."
+  >
+    <a mat-stroked-button routerLink="/tasks/neu">
+      <mat-icon>add</mat-icon>
+      Neue Aufgabe
+    </a>
+  </app-empty-state>
+}

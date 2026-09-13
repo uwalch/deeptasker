@@ -1,0 +1,16 @@
+{
+  "name": "deeptasker-backend",
+  "version": "0.0.1",
+  "description": "DeepTasker REST API Backend - using Node.js built-ins",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js",
+    "test": "echo 'Tests coming soon'"
+  },
+  "keywords": ["tasks", "management", "rest-api"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}

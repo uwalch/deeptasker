@@ -1,0 +1,76 @@
+<mat-toolbar class="shell-toolbar">
+  <button
+    mat-icon-button
+    type="button"
+    [attr.aria-label]="drawerOpen() ? 'Navigation ausblenden' : 'Navigation einblenden'"
+    [matTooltip]="drawerOpen() ? 'Navigation ausblenden' : 'Navigation einblenden'"
+    (click)="toggleDrawer()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="shell-brand">
+    <mat-icon class="shell-brand__mark" aria-hidden="true">bolt</mat-icon>
+    <span class="shell-brand__name">DeepTasker</span>
+  </span>
+
+  <span class="shell-spacer"></span>
+
+  @if (store.openCount(); as open) {
+    <span class="shell-badge" [attr.aria-label]="open + ' offene Aufgaben'">
+      {{ open }} offen
+    </span>
+  }
+
+  <button
+    mat-icon-button
+    type="button"
+    aria-label="Farbschema wählen"
+    matTooltip="Farbschema"
+    [matMenuTriggerFor]="themeMenu"
+  >
+    <mat-icon>{{ themeIcon }}</mat-icon>
+  </button>
+  <mat-menu #themeMenu="matMenu">
+    @for (option of themeOptions; track option.value) {
+      <button mat-menu-item type="button" (click)="setTheme(option.value)">
+        <mat-icon>{{ option.icon }}</mat-icon>
+        <span>{{ option.label }}</span>
+        @if (preference() === option.value) {
+          <mat-icon class="shell-menu-check">check</mat-icon>
+        }
+      </button>
+    }
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="shell-container" [hasBackdrop]="isHandset()">
+  <mat-sidenav
+    class="shell-drawer"
+    [opened]="drawerOpen()"
+    [mode]="isHandset() ? 'over' : 'side'"
+    (openedChange)="drawerOpen.set($event)"
+  >
+    <nav class="shell-nav" aria-label="Hauptnavigation">
+      <mat-nav-list>
+        @for (item of navItems; track item.path) {
+          <a
+            mat-list-item
+            [routerLink]="item.path"
+            routerLinkActive="shell-nav__link--active"
+            (click)="onNavigate()"
+          >
+            <mat-icon matListItemIcon aria-hidden="true">{{ item.icon }}</mat-icon>
+            <span matListItemTitle>{{ item.label }}</span>
+          </a>
+        }
+      </mat-nav-list>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell-content">
+    <main class="shell-main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

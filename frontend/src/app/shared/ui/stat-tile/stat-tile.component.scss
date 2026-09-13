@@ -1,0 +1,46 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dt-space-1);
+  height: 100%;
+  padding: var(--dt-space-4);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--dt-radius);
+  background: var(--mat-sys-surface-container-low);
+}
+
+.tile__head {
+  display: flex;
+  align-items: center;
+  gap: var(--dt-space-2);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.tile__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  font-size: 1.125rem;
+}
+
+.tile__label {
+  font: var(--mat-sys-label-large);
+}
+
+.tile__value {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--mat-sys-on-surface);
+}
+
+.tile__value--hero {
+  font-size: 3rem;
+  color: var(--mat-sys-primary);
+}
+
+.tile__caption {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-small);
+}

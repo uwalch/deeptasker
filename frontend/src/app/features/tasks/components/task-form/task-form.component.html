@@ -1,0 +1,72 @@
+<a class="back" mat-button routerLink="/tasks">
+  <mat-icon>arrow_back</mat-icon>
+  Alle Aufgaben
+</a>
+
+<h1 class="form-title">Neue Aufgabe</h1>
+
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Titel</mat-label>
+    <input matInput formControlName="title" required maxlength="120" />
+    <mat-hint align="end">{{ form.controls.title.value.length }}/120</mat-hint>
+    @if (form.controls.title.hasError('required')) {
+      <mat-error>Bitte gib der Aufgabe einen Titel.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Beschreibung</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (entry of statuses; track entry[0]) {
+          <mat-option [value]="entry[0]">{{ entry[1] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Priorität</mat-label>
+      <mat-select formControlName="priority">
+        @for (entry of priorities; track entry[0]) {
+          <mat-option [value]="entry[0]">{{ entry[1] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Geschätzter Aufwand</mat-label>
+      <input matInput type="number" formControlName="estimatedMinutes" min="1" />
+      <span matTextSuffix>min</span>
+      @if (form.controls.estimatedMinutes.hasError('min')) {
+        <mat-error>Bitte mindestens eine Minute angeben.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fällig am</mat-label>
+      <input matInput [matDatepicker]="due" formControlName="dueDate" />
+      <mat-datepicker-toggle matIconSuffix [for]="due" />
+      <mat-datepicker #due />
+    </mat-form-field>
+  </div>
+
+  @if (store.error(); as error) {
+    <p class="form-error" role="alert">Speichern fehlgeschlagen: {{ error }}</p>
+  }
+
+  <div class="form-actions">
+    <a mat-button routerLink="/tasks">Abbrechen</a>
+    <button mat-flat-button type="submit" [disabled]="store.saving()">
+      <mat-icon>check</mat-icon>
+      {{ store.saving() ? 'Wird gespeichert …' : 'Aufgabe anlegen' }}
+    </button>
+  </div>
+</form>

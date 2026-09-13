@@ -1,0 +1,58 @@
+.bar {
+  display: flex;
+  /* 2px Flächenfarbe zwischen den Segmenten - der Abstand trennt, nicht ein Rahmen. */
+  gap: 2px;
+  height: 20px;
+  margin-bottom: var(--dt-space-3);
+}
+
+.bar__segment {
+  min-width: 4px;
+}
+
+/* 4px gerundetes Datenende, an der Basis eckig. */
+.bar__segment:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.bar__segment:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.bar__segment:only-child {
+  border-radius: 4px;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: var(--dt-space-2) var(--dt-space-3);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend__item {
+  display: contents;
+}
+
+.legend__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* Text trägt Texttoken, nie die Serienfarbe - die Identität kommt vom Swatch. */
+.legend__label {
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+}
+
+.legend__value,
+.legend__percent {
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-label-large);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}

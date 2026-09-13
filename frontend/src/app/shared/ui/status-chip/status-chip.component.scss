@@ -1,0 +1,18 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dt-space-2);
+  padding: 2px var(--dt-space-2) 2px var(--dt-space-1);
+  border-radius: 999px;
+  font: var(--mat-sys-label-medium);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chip-color);
+  /* 2px Ring in Flächenfarbe, damit der Punkt auf jedem Untergrund freisteht. */
+  box-shadow: 0 0 0 2px var(--mat-sys-surface);
+}
